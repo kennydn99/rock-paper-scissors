@@ -1,5 +1,3 @@
-console.log("Test!");
-
 // getComputerChoice function
 //     - randomly return either 'Rock', 'Paper', or 'Scissors'
 //
@@ -30,5 +28,21 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
     let playerChoice = playerSelection.toLowerCase();
+
+    if (playerChoice === computerSelection.toLowerCase()) {
+        return "Tie!";
+    } else if (
+        (playerChoice === "rock" && computerSelection === "Paper") ||
+        (playerChoice === "paper" && computerSelection === "Scissors") ||
+        (playerChoice === "scissors" && computerSelection === "Rock")) {
+            return `You Lose! ${computerSelection} beats ${playerSelection}.`;
+    } else {
+        return `You Win! ${playerSelection} beats ${computerSelection}.`;
+    }
 }
+
+const playerSelection = "sCissORS";
+const computerSelection = getComputerChoice();
+console.log("comp: " + computerSelection);
+console.log(playRound(playerSelection, computerSelection));
 
