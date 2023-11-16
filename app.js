@@ -30,19 +30,45 @@ function playRound(playerSelection, computerSelection) {
     let playerChoice = playerSelection.toLowerCase();
 
     if (playerChoice === computerSelection.toLowerCase()) {
-        return "Tie!";
+        return 0;
     } else if (
         (playerChoice === "rock" && computerSelection === "Paper") ||
         (playerChoice === "paper" && computerSelection === "Scissors") ||
         (playerChoice === "scissors" && computerSelection === "Rock")) {
-            return `You Lose! ${computerSelection} beats ${playerSelection}.`;
+            return -1;
     } else {
-        return `You Win! ${playerSelection} beats ${computerSelection}.`;
+        return 1;
     }
 }
 
-const playerSelection = "sCissORS";
-const computerSelection = getComputerChoice();
-console.log("comp: " + computerSelection);
-console.log(playRound(playerSelection, computerSelection));
+//  GAME Function
+//      -user playRound function to play 5 round game keeping score and report winner or loser at end
+//      -console.log() -> display results of each round & winner at the end
+//         -prompt for user input
+
+function game() {
+    let currentScore = 0;
+    let computerScore = 0;
+
+    for (let i = 0; i < 5; i++) {
+        let userInput = prompt("Pick one: Rock, Paper, or Scissors?: ");
+        if (playRound(userInput, getComputerChoice()) === 0) {
+            console.log(`Round ${i + 1}: Tie!`);
+        } else if (playRound(userInput, getComputerChoice()) < 0) {
+            console.log(`Round ${i + 1}: You Lose! ${getComputerChoice()} beats ${userInput}`);
+            computerScore++;
+        } else {
+            console.log(`Round ${i + 1}: You Win! ${userInput} beats ${getComputerChoice()}`);
+            currentScore++;
+        }
+    }
+
+    if (currentScore > computerScore) {
+        console.log(`You are the winner of the game! You won ${currentScore} times.`)
+    } else if (currentScore < computerScore) {
+        console.log(`The computer is the winner of the game! You lost ${computerScore} times.`)
+    } else {
+        console.log(`Tie game!`)
+    }
+}
 
