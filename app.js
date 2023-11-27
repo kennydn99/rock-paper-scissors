@@ -47,8 +47,7 @@ function playRound(playerSelection, computerSelection) {
 //         -prompt for user input
 
 function game() {
-    let currentScore = 0;
-    let computerScore = 0;
+    
 
     for (let i = 0; i < 5; i++) {
         let userInput = prompt("Pick one: Rock, Paper, or Scissors?: ");
@@ -73,21 +72,45 @@ function game() {
 }
 
 //game();
-
+let display = document.querySelector('.display');
 let btns = document.querySelector('.btn-container');
-console.log(btns);
+
+let userChoice;
+let userScore = 0;
+let computerScore = 0;
+
+let userScorePanel = document.createElement('div');
+userScorePanel.textContent = `Your Score: ${userScore}`;
+display.append(userScorePanel);
+let computerScorePanel = document.createElement('div');
+computerScorePanel.textContent = `Computer Score: ${computerScore}`;
+display.append(computerScorePanel);
+
 btns.addEventListener('click', (event) => {
     let target = event.target;
-    console.log(target);
+    let computerChoice = getComputerChoice();
+
     switch(target.id) {
         case "rock-btn":
-            console.log("Rock button pressed!");
+            userChoice = 'Rock';
             break;
         case "paper-btn":
-            console.log("Paper button pressed!");
+            userChoice = 'Paper';
             break;
         case "scissors-btn":
-            console.log("Scissors button pressed!");
+            userChoice = 'Scissors';
             break;
     }
+
+    let outcome = playRound(userChoice, computerChoice);
+    if (outcome == 0) {
+        display.textContent = `${userChoice} vs ${computerChoice} : It's a Tie!`;
+    } else if (outcome < 0) {
+        display.textContent = `${userChoice} vs ${computerChoice} : Computer wins this round`;
+        computerScore++;
+    } else {
+        display.textContent = `${userChoice} vs ${computerChoice} : You win this round`;
+        userScore++;
+    }
+    
 });
