@@ -72,4 +72,22 @@ function game() {
     }
 }
 
-game();
+//game();
+
+let btns = document.querySelector('.btn-container');
+console.log(btns);
+btns.addEventListener('click', (event) => {
+    let target = event.target;
+    console.log(target);
+    switch(target.id) {
+        case "rock-btn":
+            console.log("Rock button pressed!");
+            break;
+        case "paper-btn":
+            console.log("Paper button pressed!");
+            break;
+        case "scissors-btn":
+            console.log("Scissors button pressed!");
+            break;
+    }
+});
