@@ -23,33 +23,37 @@ function playRound(playerSelection, computerSelection) {
 
 //  GAME Function
 function game() {
-    for (let i = 0; i < 5; i++) {
-        let userInput = prompt("Pick one: Rock, Paper, or Scissors?: ");
-        if (playRound(userInput, getComputerChoice()) === 0) {
-            console.log(`Round ${i + 1}: Tie!`);
-        } else if (playRound(userInput, getComputerChoice()) < 0) {
-            console.log(`Round ${i + 1}: You Lose! ${getComputerChoice()} beats ${userInput}`);
-            computerScore++;
-        } else {
-            console.log(`Round ${i + 1}: You Win! ${userInput} beats ${getComputerChoice()}`);
-            currentScore++;
-        }
+
+    if (userScore == 5) {
+        display.textContent = `You are the winner of the game! You won ${userScore} times.`;
+    } 
+    if (computerScore == 5) {
+        display.textContent = `The computer is the winner of the game! You lost ${computerScore} times.`;
     }
 
-    if (currentScore > computerScore) {
-        console.log(`You are the winner of the game! You won ${currentScore} times.`)
-    } else if (currentScore < computerScore) {
-        console.log(`The computer is the winner of the game! You lost ${computerScore} times.`)
-    } else {
-        console.log(`Tie game!`)
+    if(userScore == 5 || computerScore == 5) {
+        btns.style.visibility = 'hidden';
+        let playAgainBtn = document.createElement('button');
+        playAgainBtn.textContent = 'Play Again';
+        display.appendChild(playAgainBtn);
+        playAgainBtn.addEventListener('click', (event) => {
+            btns.style.visibility = 'visible';
+            playAgainBtn.style.visibility = 'hidden';
+            userScore = 0;
+            userScorePanel.textContent = `Your Score: ${userScore}`;
+            computerScore = 0;
+            computerScorePanel.textContent = `Computer Score: ${computerScore}`;
+            display.textContent = "";
+        });
     }
 }
 
-//game();
+
 
 let display = document.querySelector('.display');
 let btns = document.querySelector('.btn-container');
 let scoreboard = document.querySelector('.scoreboard');
+//let playAgainBtn;
 
 let userChoice;
 let userScore = 0;
@@ -61,6 +65,7 @@ scoreboard.appendChild(userScorePanel);
 let computerScorePanel = document.createElement('div');
 computerScorePanel.textContent = `Computer Score: ${computerScore}`;
 scoreboard.appendChild(computerScorePanel);
+computerScorePanel.textContent = `Computer Score: ${computerScore}`;
 
 btns.addEventListener('click', (event) => {
     let target = event.target;
@@ -90,5 +95,6 @@ btns.addEventListener('click', (event) => {
         userScore++;
         userScorePanel.textContent = `Your Score: ${userScore}`;
     }
-    
+    game();
 });
+
