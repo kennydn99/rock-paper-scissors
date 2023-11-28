@@ -1,9 +1,4 @@
-// getComputerChoice function
-//     - randomly return either 'Rock', 'Paper', or 'Scissors'
-//
-//  CREATE array/list of choices (rock, paper, scissors)
-//  SET randomNum from 1-3 (3 choices)
-//  RETURN choice from array/list at randomNum index
+// getComputerChoice function - randomly return either 'Rock', 'Paper', or 'Scissors'
 function getComputerChoice() {
     let choices = ["Rock", "Paper", "Scissors"];
     let randomNum = Math.floor(Math.random() * 3);
@@ -11,21 +6,6 @@ function getComputerChoice() {
 }
 
 // Play single round of game function
-//      - 2 parameters (playerSelection, computerSelection)
-//      - return string declaring winner of round ("You Lose! Paper beats Rock")
-//      - make playerSelection case-insensitive
-//
-//  DECLARE function with parameters
-//      CONVERT playerSelection to lower case
-//      CASE if playerSelection is the same as computerSelection
-//          THEN RETURN tie
-//      CASE if (playerSelection === rock AND computerSelection === paper) OR
-//              (playerSelection === paper AND computerSelection === scissors) OR
-//              (playerSelection === scissors AND computerSelection === rock)
-//          THEN RETURN You Lose computerSelection beats playerSelection
-//      ENDCASE means player wins
-//          RETURN You Win! playerSelection beats computerSelection
-
 function playRound(playerSelection, computerSelection) {
     let playerChoice = playerSelection.toLowerCase();
 
@@ -42,13 +22,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 //  GAME Function
-//      -user playRound function to play 5 round game keeping score and report winner or loser at end
-//      -console.log() -> display results of each round & winner at the end
-//         -prompt for user input
-
 function game() {
-    
-
     for (let i = 0; i < 5; i++) {
         let userInput = prompt("Pick one: Rock, Paper, or Scissors?: ");
         if (playRound(userInput, getComputerChoice()) === 0) {
@@ -72,8 +46,10 @@ function game() {
 }
 
 //game();
+
 let display = document.querySelector('.display');
 let btns = document.querySelector('.btn-container');
+let scoreboard = document.querySelector('.scoreboard');
 
 let userChoice;
 let userScore = 0;
@@ -81,10 +57,10 @@ let computerScore = 0;
 
 let userScorePanel = document.createElement('div');
 userScorePanel.textContent = `Your Score: ${userScore}`;
-display.append(userScorePanel);
+scoreboard.appendChild(userScorePanel);
 let computerScorePanel = document.createElement('div');
 computerScorePanel.textContent = `Computer Score: ${computerScore}`;
-display.append(computerScorePanel);
+scoreboard.appendChild(computerScorePanel);
 
 btns.addEventListener('click', (event) => {
     let target = event.target;
@@ -108,9 +84,11 @@ btns.addEventListener('click', (event) => {
     } else if (outcome < 0) {
         display.textContent = `${userChoice} vs ${computerChoice} : Computer wins this round`;
         computerScore++;
+        computerScorePanel.textContent = `Computer Score: ${computerScore}`;
     } else {
         display.textContent = `${userChoice} vs ${computerChoice} : You win this round`;
         userScore++;
+        userScorePanel.textContent = `Your Score: ${userScore}`;
     }
     
 });
